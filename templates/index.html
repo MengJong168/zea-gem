@@ -1828,16 +1828,15 @@ function closeInvoiceModal() {
   try {
     const proxyUrl = 'https://api.allorigins.win/raw?url=';
     
-    // const targetUrl = encodeURIComponent(`https://mengtopup.shop/api/account?uid=${uid}&region=sg`);
-    const targetUrl = encodeURIComponent(`https://api-nickname-by-visatopup.vercel.app/api/v1/check_nickname?id=${uid}&zone=0&game=freefire`);
+    const targetUrl = encodeURIComponent(`https://mengtopup.shop/api/account?uid=${uid}&region=sg`);
     const response = await fetch(proxyUrl + targetUrl);
 
     if (!response.ok) throw new Error("Network response was not ok");
 
     const data = await response.json();
 
-    if (data.nickname) {
-      display.textContent = `✅ Username: ${data.nickname}`;
+    if (data.basicInfo && data.basicInfo.nickname) {
+      display.textContent = `✅ Username: ${data.basicInfo.nickname}`;
       display.style.color = "white";
     } else {
       display.textContent = "❌ Username not found.";
